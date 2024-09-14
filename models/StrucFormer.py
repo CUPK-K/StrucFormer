@@ -17,8 +17,6 @@ def get_proj(input_size, dim, bias=False):
     return lin
 
 
-
-
 class PreNorm(nn.Module):
     def __init__(self, dim, fn):
         super().__init__()
@@ -48,7 +46,6 @@ class FeedForward(nn.Module):
         tensor = self.w_2(tensor)
         tensor = self.dropout2(tensor)
         return tensor
-
 
 
 
@@ -84,12 +81,6 @@ class CAttentionHead(nn.Module):
         out_tensor = torch.matmul(P_bar, V)
 
         return out_tensor
-
-
-
-
-
-
 
 
 
@@ -138,9 +129,6 @@ class CMHAttention(nn.Module):
         return out
 
 
-
-
-
 class Encoder(nn.Module):
 
     
@@ -174,7 +162,6 @@ class Encoder(nn.Module):
         return tensor
 
 
-
 class Decoder(nn.Module):
 
     
@@ -191,7 +178,6 @@ class Decoder(nn.Module):
         
         self.project_out = nn.Linear(channels, 1);
         
-
 
         for index in range(depth):
             input_channels  = self.channels
@@ -222,13 +208,6 @@ class Decoder(nn.Module):
         return self.project_out(tensor)
 
 
-
-
-
-
-
-
-
 class StrucFormer(nn.Module):
 
     #input_size: sensed value size
@@ -242,43 +221,6 @@ class StrucFormer(nn.Module):
         self.Decoder = Decoder(decode_size,input_size,channels, dim_k, dim_ff, dropout_ff, dropout, nhead, depth);
         
 
-            
-
-
     def forward(self, x, y=None, **kwargs):
         encoder_output = self.Encoder(x);
         return self.Decoder(y, embeddings=encoder_output);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
